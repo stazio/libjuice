@@ -24,8 +24,9 @@ int test_crc32(void);
 int test_stun(void);
 int test_connectivity(void);
 int test_notrickle(void);
-int test_server(void);
+int test_gathering(void);
 int test_turn(void);
+int test_server(void);
 
 int main(int argc, char **argv) {
 	juice_set_log_level(JUICE_LOG_LEVEL_WARN);
@@ -42,9 +43,15 @@ int main(int argc, char **argv) {
 		return -3;
 	}
 
-	printf("\nRunning STUN/TURN server test...\n");
+	printf("\nRunning server test...\n");
 	if (test_server()) {
-		fprintf(stderr, "STUN/TURN server test failed\n");
+		fprintf(stderr, "Server test failed\n");
+		return -1;
+	}
+
+	printf("\nRunning STUN/TURN gathering test...\n");
+	if (test_gathering()) {
+		fprintf(stderr, "STUN/TURN gathering test failed\n");
 		return -1;
 	}
 
